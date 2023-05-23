@@ -1,0 +1,58 @@
+{
+  "name": "xorgxx/neox-table-bundle",
+  "description": "simple for you to manage integration \"crud\" ",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Xorg",
+      "email": "zorg@ip2.i2p"
+    }
+  ],
+  "require": {
+    "php": ">=8.0",
+    "doctrine/inflector": "^2.0",
+    "nikic/php-parser": "^4.11",
+    "symfony/config": "^5.4.7|^6.0",
+    "symfony/console": "^5.4.7|^6.0",
+    "symfony/dependency-injection": "^5.4.7|^6.0",
+    "symfony/deprecation-contracts": "^2.2|^3",
+    "symfony/filesystem": "^5.4.7|^6.0",
+    "symfony/finder": "^5.4.3|^6.0",
+    "symfony/framework-bundle": "^5.4.7|^6.0",
+    "symfony/http-kernel": "^5.4.7|^6.0",
+    "symfony/translation": "6.2.x-dev",
+    "symfony/yaml": "6.2.x-dev"
+  },
+  "require-dev": {
+    "composer/semver": "^3.0",
+    "doctrine/doctrine-bundle": "^2.4",
+    "doctrine/orm": "^2.10.0",
+    "symfony/http-client": "^5.4.7|^6.0",
+    "symfony/phpunit-bridge": "^5.4.7|^6.0",
+    "symfony/polyfill-php80": "^1.16.0",
+    "symfony/process": "^5.4.7|^6.0",
+    "symfony/security-core": "^5.4.7|^6.0",
+    "twig/twig": "^2.0|^3.0"
+  },
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "allow-plugins": {
+      "symfony/flex": false
+    }
+  },
+  "conflict": {
+    "doctrine/orm": "<2.10",
+    "doctrine/doctrine-bundle": "<2.4",
+    "symfony/doctrine-bridge": "<5.4"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
+  },
+  "autoload": {
+    "psr-4": {
+      "NeoxTable\\NeoxTableBundle\\": "src/"
+    }
+  }
+}
