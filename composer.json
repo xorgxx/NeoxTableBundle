@@ -1,7 +1,6 @@
 {
   "name": "xorgxx/neox-table-bundle",
   "description": "simple for you to manage integration \"crud\" ",
-  "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [
     {
