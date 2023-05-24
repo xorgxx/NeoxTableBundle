@@ -21,8 +21,8 @@
     "symfony/finder": "^5.4.3|^6.0",
     "symfony/framework-bundle": "^5.4.7|^6.0",
     "symfony/http-kernel": "^5.4.7|^6.0",
-    "symfony/translation": "6.2.x-dev",
-    "symfony/yaml": "6.2.x-dev"
+    "symfony/translation": "^6.2",
+    "symfony/yaml": "^6.2"
   },
   "require-dev": {
     "composer/semver": "^3.0",
