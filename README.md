@@ -2,12 +2,14 @@
 This bundle provides a simple and flexible to manage crud render in your application.
 Its main goal is to make it simple for you to manage integration "crud" render and to let you configure less common ones with ease.
 
-## Installation
-Install the bundle for now is manuel !! as is still on beta version !!
+## Installation BETA VRESION 
+Install the bundle for Composer !! as is still on beta version !!
 
-composer require xorgxx/neox-table-bundle:dev-master
+````
+  composer require xorgxx/neox-table-bundle:dev-master
+````
 
-Make shur that is register the bundle in your AppKernel:
+Make sure that is register the bundle in your AppKernel:
 ```php
 Bundles.php
 <?php
@@ -20,7 +22,8 @@ return [
 ```
 
 **NOTE:** _You may need to use [ symfony composer dump-autoload ] to reload autoloading_
-Done 🎈
+
+ ..... Done 🎈
 
 
 ## Configuration
