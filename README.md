@@ -89,6 +89,11 @@ Them you need to setup one line at liste in controller :
 |           └─── test
 |               └─── crudController.php
 ```
+Import class in your controller : buttonBuild and NeoxTableBuilder !
+````
+use NeoxTable\NeoxTableBundle\Service\NeoxTableBuilder;
+use NeoxTable\NeoxTableBundle\Service\buttonBuild;
+````
 ```php
     /**
      * @throws NonUniqueResultException
