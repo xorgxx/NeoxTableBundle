@@ -5,20 +5,9 @@ Its main goal is to make it simple for you to manage integration "crud" render a
 ## Installation
 Install the bundle for now is manuel !! as is still on beta version !!
 
-Copy all files in root of your "sandBox"
-```
-project
-│   assets
-│   bin
-│   config
-|   ....
-└───Library
-│   │   NeoxTableBundle
+composer require xorgxx/neox-table-bundle:dev-master
 
-````
-
-
-Register the bundle in your AppKernel:
+Make shur that is register the bundle in your AppKernel:
 ```php
 Bundles.php
 <?php
@@ -29,16 +18,7 @@ return [
     .....
 ];
 ```
-Register the bundle in Composer.json
 
-````json
-    "autoload": {
-        "psr-4": {
-            "NeoxTable\\NeoxTableBundle\\": "Library/NeoxTableBundle/src/",
-            "App\\": "src/"
-        }
-    },
-````
 **NOTE:** _You may need to use [ symfony composer dump-autoload ] to reload autoloading_
 Done 🎈
 
