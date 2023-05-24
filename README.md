@@ -8,7 +8,9 @@ Its main goal is to make it simple for you to manage integration "crud" render a
 Install the bundle for Composer !! as is still on beta version !!
 
 ````
-  composer require xorgxx/neox-table-bundle:dev-master
+  composer require xorgxx/neox-table-bundle
+  or 
+  composer require xorgxx/neox-table-bundle:0.*
 ````
 
 Make sure that is register the bundle in your AppKernel:
