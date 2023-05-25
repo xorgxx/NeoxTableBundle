@@ -5,7 +5,7 @@ Be aware that there is no testing code !
 
 [![2023-05-24-12-05-31.png](https://i.postimg.cc/zfLGNQ3r/2023-05-24-12-05-31.png)](https://postimg.cc/rdkkCQSn)
 [![2023-05-05-00-08-37.png](https://i.postimg.cc/K8DnLR5z/2023-05-05-00-08-37.png)](https://postimg.cc/FY1dXF85)
-## Installation BETA VRESION 
+## Installation BETA VERSION !!
 Install the bundle for Composer !! as is still on beta version !!
 
 ````
