@@ -149,12 +149,17 @@ Add all field that you need to see in render table. *if you have relation in ent
             ->setIcon("bi-arrow-left-square")
             ->build();
             
-            New syntax :
-                $header =  (new buttonBuild())
-                  ->setType("@")
-                  ->setAdd('<a href="/site-quotation" class="button m-0 button-circle button-large text-white" style="background-color: #084678;">Estimation gratuite ...</a>')
-                  ->build();
+        New syntax :
+            $header =  (new buttonBuild())
+              ->setType("@")
+              ->setAdd('<a href="/site-quotation" class="button m-0 button-circle button-large text-white" style="background-color: #084678;">Estimation gratuite ...</a>')
+              ->build();
+              
+        them to send to builder :
+            $this->setButton($header, [Tag {a} to create action button; {h} to create header button]);
 ````
+[![2023-05-24-12-05-32.png](https://i.postimg.cc/15s1JNrZ/2023-05-24-12-05-32.png)](https://postimg.cc/rznHpsHh)
+
 This generates for you all standard button crud : add - delete - pin - edit -- return
 ````
     ->setActButton("@app_admin_post_crud")  --> all button header and table colonne
