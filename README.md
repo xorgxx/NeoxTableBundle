@@ -1,7 +1,7 @@
 # NeoxTableBundle
 This bundle provides a simple and flexible to manage crud render in your application.
 Its main goal is to make it simple for you to manage integration "crud" render and to let you configure less common ones with ease.
-
+Be aware that there is no testing code !
 
 [![2023-05-24-12-05-31.png](https://i.postimg.cc/zfLGNQ3r/2023-05-24-12-05-31.png)](https://postimg.cc/rdkkCQSn)
 [![2023-05-05-00-08-37.png](https://i.postimg.cc/K8DnLR5z/2023-05-05-00-08-37.png)](https://postimg.cc/FY1dXF85)
