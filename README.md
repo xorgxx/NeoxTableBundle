@@ -34,6 +34,7 @@ return [
 ## Configuration
 
 No configuration except that you have install stimulus/turbo-ux and setup correctly !!
+Base css on Bootstrap 5 so if you have install on your project all css and js from Bs5 going to be applique.
 
 How to use in console ?
 ``` symfony console neox:table:crud ```
@@ -138,7 +139,7 @@ use NeoxTable\NeoxTableBundle\Service\buttonBuild;
 ```
 Add all field that you need to see in render table. *if you have relation in entity : author.email@user [@ is use to give domaine name for translator]
 
-**NOTE:** _You can add any button manually in header or in table colonne_
+**NOTE:** _You can add any button manually in header or in table colonne. Also new syntax will come to add button as you want!_
 ````
         $header =  (new buttonBuild())
             ->setLabel("Back Post")
@@ -147,8 +148,14 @@ Add all field that you need to see in render table. *if you have relation in ent
             ->setStyle("height: 30px", true)
             ->setIcon("bi-arrow-left-square")
             ->build();
+            
+            New syntax :
+                $header =  (new buttonBuild())
+                  ->setType("@")
+                  ->setAdd('<a href="/site-quotation" class="button m-0 button-circle button-large text-white" style="background-color: #084678;">Estimation gratuite ...</a>')
+                  ->build();
 ````
-This generate for you all standard button crud : add - delete - pin - edit -- return
+This generates for you all standard button crud : add - delete - pin - edit -- return
 ````
     ->setActButton("@app_admin_post_crud")  --> all button header and table colonne
     ->setActButton("#app_admin_post_crud")  --> only button table colonne

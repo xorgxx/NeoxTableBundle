@@ -17,6 +17,9 @@ class buttonBuild
 
     protected ?string $data = "" ;
 
+
+    protected ?string $add = "" ;
+
     protected ?string $icon = "";
 
 
@@ -40,12 +43,32 @@ class buttonBuild
 
                 $s = "{% if item.publish is defined %} $s {% endif %}";
                 break;
+            case "@":
+
+                break;
             default :
                 $s = "<$this->type $this->ref $this->class $this->style > $this->icon $this->label </$this->type>" ;
                 break;
         }
         return $s ;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getAdd(): ?string
+    {
+        return $this->add;
+    }
+
+    /**
+     * @param string|null $add
+     */
+    public function setAdd(?string $add): void
+    {
+        $this->add = $add;
+    }
+
 
     /**
      * @return string|null
