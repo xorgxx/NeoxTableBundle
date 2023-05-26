@@ -171,7 +171,14 @@ If you need to add special Js or css
 ````
     ->styling([...template.html.twig...])
 ````
-
+Add voter on action bar: if you set in your project voter on entity it will recognise 
+````
+    public const NEW    = 'NEW';
+    public const EDIT   = 'EDIT';
+    public const PIN    = 'PIN';
+    public const VIEW   = 'VIEW';
+    public const DELETE = 'DELETE';
+````
 
 ## Contributing
 If you want to contribute \(thank you!\) to this bundle, here are some guidelines:
