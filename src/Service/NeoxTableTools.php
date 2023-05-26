@@ -186,17 +186,20 @@ class NeoxTableTools
 
     /**
      * @param string|null $button
-     * @param string|null $cat  a = action bar; h = header bar
+     * @param string|null $cat a = action bar; h = header bar
+     * @param string|null $voter
+     * @return NeoxTableTools
      */
-    public function setButton(?string $button, ?string $cat = "a", ?string $voter = null): void
+    public function setButton(?string $button, ?string $cat = "a", ?string $voter = null): self
     {
         if ($voter) {
             $this->button[$cat][$voter] = $button;
         }else{
             $this->button[$cat][] = $button;
         }
-
+        return $this;
     }
+
 
     /**
      * @return array
