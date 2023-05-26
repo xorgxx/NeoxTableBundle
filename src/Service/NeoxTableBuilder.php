@@ -57,14 +57,14 @@ class NeoxTableBuilder extends NeoxTableTools
                     ->setClass( " {{ item.publish is same as(true) ? 'button-dirtygreen' : 'button-info' }} ")
                     ->setIcon(" {{ item.publish is same as(true) ? 'bi-pin-fill' : 'bi-pin-angle-fill' }} ")
                     ->build();
-                $this->setButton($pin);
+                $this->setButton($pin, "a" ,"PIN");
 
                 $edit = (new buttonBuild())
                     ->setRef(" '{{path( '" . $name . "_edit', { 'id': item.id } )}}' " )
                     ->setClass("button-green")
                     ->setIcon("fa-solid fa-file-edit")
                     ->build();
-                $this->setButton($edit);
+                $this->setButton($edit, "a" ,"EDIT");
 
                 // ADDING !!! DELETE !!! button is special =================
                 $del = (new buttonBuild())
@@ -74,7 +74,7 @@ class NeoxTableBuilder extends NeoxTableTools
                     ->setClass("button-red")
                     ->setIcon("fa-solid fa-trash-alt")
                     ->build("admin/parameters/crud");
-                $this->setButton($del);
+                $this->setButton($del, "a" ,"DELETE");
                 break;
             // No header button !!
             case str_starts_with( $action, "#" ):
@@ -86,14 +86,14 @@ class NeoxTableBuilder extends NeoxTableTools
                     ->setClass( " {{ item.publish is same as(true) ? 'button-dirtygreen' : 'button-info' }} ")
                     ->setIcon(" {{ item.publish is same as(true) ? 'bi-pin-fill' : 'bi-pin-angle-fill' }} ")
                     ->build();
-                $this->setButton($pin);
+                $this->setButton($pin,"a" ,"PIN");
 
                 $edit = (new buttonBuild())
                     ->setRef(" '{{path( '" . $name . "_edit', { 'id': item.id } )}}' " )
                     ->setClass("button-green")
                     ->setIcon("fa-solid fa-file-edit")
                     ->build();
-                $this->setButton($edit);
+                $this->setButton($edit, "a" ,"EDIT");
 
                 // ADDING !!! DELETE !!! button is special =================
                 $del = (new buttonBuild())
@@ -103,7 +103,7 @@ class NeoxTableBuilder extends NeoxTableTools
                     ->setClass("button-red")
                     ->setIcon("fa-solid fa-trash-alt")
                     ->build("admin/parameters/crud");
-                $this->setButton($del);
+                $this->setButton($del, "a" ,"DELETE");
                 break;
 
             default :

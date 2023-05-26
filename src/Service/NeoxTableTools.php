@@ -188,9 +188,14 @@ class NeoxTableTools
      * @param string|null $button
      * @param string|null $cat  a = action bar; h = header bar
      */
-    public function setButton(?string $button, ?string $cat = "a"): void
+    public function setButton(?string $button, ?string $cat = "a", ?string $voter = null): void
     {
-        $this->button[$cat][] = $button;
+        if ($voter) {
+            $this->button[$cat][$voter] = $button;
+        }else{
+            $this->button[$cat][] = $button;
+        }
+
     }
 
     /**
