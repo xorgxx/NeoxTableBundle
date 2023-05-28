@@ -35,7 +35,11 @@
                         <td style="width:{{  neoxTable.tdWidth }}%">
                             <div class="d-flex align-content-start flex-wrap">
                                 {% for key, itemButton in neoxTable.getButton["a"] %}
-                                    {% if is_granted(key, item) %}
+                                    {% if neoxTable.Voter %}
+                                        {% if is_granted(key, item) %}
+                                            {{ include( template_from_string(  itemButton ) ) }}
+                                        {% endif %}
+                                    {% else %}
                                         {{ include( template_from_string(  itemButton ) ) }}
                                     {% endif %}
                                 {% endfor %}

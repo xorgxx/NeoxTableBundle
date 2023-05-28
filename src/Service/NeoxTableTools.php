@@ -28,6 +28,11 @@ class NeoxTableTools
     protected ?string $styling = null;
 
     /**
+     * Set voter to true if the voter existe !!.
+     */
+    protected ?bool $voter = null;
+
+    /**
      * header subTitle.
      */
     protected string $subTitle;
@@ -139,6 +144,22 @@ class NeoxTableTools
     public function setStyling(?string $styling): void
     {
         $this->styling = $styling;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getVoter(): ?bool
+    {
+        return $this->voter;
+    }
+
+    /**
+     * @param bool|null $voter
+     */
+    public function setVoter(?bool $voter): void
+    {
+        $this->voter = $voter;
     }
 
 

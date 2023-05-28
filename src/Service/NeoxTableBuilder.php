@@ -32,6 +32,12 @@ class NeoxTableBuilder extends NeoxTableTools
         return $this;
     }
 
+    public function voterAcl( ?bool $bool) : self
+    {
+        $this->setVoter($bool);
+        return $this;
+    }
+
     public function setActButton(?string $action, ?string $header = null): self
     {
         $name = substr($action, 1, null);
