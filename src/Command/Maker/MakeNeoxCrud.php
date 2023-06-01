@@ -12,6 +12,7 @@
 namespace NeoxTable\NeoxTableBundle\Command\Maker;
 
 //use App\Controller\_CoreController;
+use NeoxTable\NeoxTableBundle\Controller\_NeoxCoreController;
 use NeoxTable\NeoxTableBundle\Service\NeoxTableBuilder;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Inflector\Inflector;
@@ -167,13 +168,15 @@ final class MakeNeoxCrud extends AbstractMaker
             Request::class,
             Response::class,
             Route::class,
-            _CoreController::class,
-            NeoxTableBuilder::class
+            _NeoxCoreController::class,
+
         ]);
+
+        $original_path = "vendor/xorgxx/neox-table-bundle/src/Resources/skeleton/";
 
         $generator->generateController(
             $controllerClassDetails->getFullName(),
-            'crud/' . self::neox_table_crud_path . '/controller/Controller.tpl.php',
+            $original_path . 'crud/' . self::neox_table_crud_path . '/controller/Controller.tpl.php',
             array_merge([
                 'use_statements' => $useStatements,
                 'entity_class_name' => $entityClassDetails->getShortName(),
@@ -195,7 +198,7 @@ final class MakeNeoxCrud extends AbstractMaker
         // create translator generic
         $generator->generateFile(
             'translations/' . $entityTwigVarSingular . '.fr.yml',
-            'crud/' . self::neox_table_crud_path . '/translations/translator.tpl.php',
+            $original_path . 'crud/' . self::neox_table_crud_path . '/translations/translator.tpl.php',
             [
                 "entity_class_name_lc" => $entityTwigVarSingular,
                 "entity_class_name_up" => $entityClassDetails->getShortName(),
@@ -249,7 +252,7 @@ final class MakeNeoxCrud extends AbstractMaker
         foreach ($templates as $template => $variables) {
             $generator->generateTemplate(
                 $templatesPath . '/' . $template . '.html.twig',
-                'crud/' . self::neox_table_crud_path . '/templates/' . $template . '.tpl.php',
+                $original_path . 'crud/' . self::neox_table_crud_path . '/templates/' . $template . '.tpl.php',
                 $variables
             );
         }
@@ -277,7 +280,7 @@ final class MakeNeoxCrud extends AbstractMaker
 
             $generator->generateFile(
                 'tests/Controller/' . $testClassDetails->getShortName() . '.php',
-                $usesEntityManager ? 'crud/' . self::neox_table_crud_path . '/test/Test.EntityManager.tpl.php' : 'crud/' . self::neox_table_crud_path . '/test/Test.tpl.php',
+                $usesEntityManager ? $original_path . 'crud/' . self::neox_table_crud_path . '/test/Test.EntityManager.tpl.php' : $original_path . 'crud/' . self::neox_table_crud_path . '/test/Test.tpl.php',
                 [
                     'use_statements' => $useStatements,
                     'entity_full_class_name' => $entityClassDetails->getFullName(),

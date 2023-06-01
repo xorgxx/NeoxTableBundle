@@ -5,7 +5,7 @@ namespace <?= $namespace ?>;
 <?= $use_statements; ?>
 
 #[Route('/%admin%<?= $route_path ?>')]
-class <?= $class_name ?> extends _CoreController
+class <?= $class_name ?> extends _NeoxCoreController
 {
 <?= $generator->generateRouteForControllerMethod('/', sprintf('%s_index', $route_name), ['GET']) ?>
 <?php if (isset($repository_full_class_name)): ?>

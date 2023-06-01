@@ -96,6 +96,7 @@ Them you need to setup one line at liste in controller :
 ```
 Import class in your controller : buttonBuild and NeoxTableBuilder !
 ````
+use NeoxTable\NeoxTableBundle\Controller\_NeoxCoreController
 use NeoxTable\NeoxTableBundle\Service\NeoxTableBuilder;
 use NeoxTable\NeoxTableBundle\Service\buttonBuild;
 ````
