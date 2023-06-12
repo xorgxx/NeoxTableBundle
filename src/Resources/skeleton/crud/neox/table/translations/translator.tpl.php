@@ -6,7 +6,7 @@
     setup-tool:
         title: Menu
     form:
-        ADD-YOUR-FIELDS.label: <?= $entity_class_name_up . PHP_EOL?>Controller->index->filterFields([ICI])
+        ADD-YOUR-FIELDS.label: <?= $entity_class_name_up . " Controller->index->filterFields([ICI])" .PHP_EOL?>
         add.label: Ajouter
         update.label: Modifier
         delete.label: Supprimer
