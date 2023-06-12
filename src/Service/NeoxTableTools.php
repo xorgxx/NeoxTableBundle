@@ -300,7 +300,8 @@ class NeoxTableTools
                     // check type -> date
                     $t = $this->arrayInString("start,end,date,created,updated,lastConnect",$item) ?
                         "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY') }}" : "{{ item.$item|default('null')|raw }}";
-
+                    $t = $this->arrayInString("startTime,endTime",$item) ?
+                        "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY hh:mm') }}" : "{{ item.$item|default('null')|raw }}";
                     $this->trBody .= '<td class=""> ' . $t . ' </td>';
 //                    $this->trBody .= '<td class="">$t ? :{{ item.'.$item.' }}</td>';
 
