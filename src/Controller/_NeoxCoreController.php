@@ -8,6 +8,7 @@
     use Symfony\Contracts\Translation\TranslatorInterface;
 
     /**
+     *
      */
     class _NeoxCoreController extends AbstractController
     {
