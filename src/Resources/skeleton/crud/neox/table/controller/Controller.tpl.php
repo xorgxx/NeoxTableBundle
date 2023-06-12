@@ -60,7 +60,7 @@ class <?= $class_name ?> extends _NeoxCoreController
             $this->addFlash('success', "Enregistrement a été ajouté.");
             // 🔥 The magic happens here! 🔥
             if ( $this->getNeoxTableBuilder()::checkTurbo($request) ) {
-                return $this->render('@NeoxTable/msg.stream.html.twig', ["domain" => "<?= $entity_twig_var_singular ?>"]);
+                return $this->render('@NeoxTable/msg.stream.html.twig', ["domaine" => "<?= $entity_twig_var_singular ?>"]);
             }
             return $this->redirectToRoute('<?= $route_name ?>_index', [], Response::HTTP_SEE_OTHER);
         }
