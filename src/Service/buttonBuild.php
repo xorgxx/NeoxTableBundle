@@ -17,6 +17,7 @@ class buttonBuild
 
     protected ?string $data = "" ;
 
+    protected ?string $turbo = "" ;
 
     protected ?string $add = "" ;
 
@@ -32,19 +33,18 @@ class buttonBuild
     {
         switch ($this->type) {
             case "delete":
-                $s = "<form style='margin:0px;' method='post' onsubmit='return confirm(". '"' . $this->label . '"' .");' action='$this->ref'> 
-                <input type='hidden' name='_token' value='{{ csrf_token('delete' ~ item.id) }}'>" .
-                "<button type='submit' $this->class $this->style > $this->icon </button>" . "</form>";
+                $s = $this->getBuildButton("delete");
                 break;
             case "pin":   // set condition !!! item.publish set !!!
-                $s = "<form style='margin:0px;' method='post' onsubmit='return confirm(". '"' . $this->label . '"' .");' action='$this->ref'> 
-                <input type='hidden' name='_token' value='{{ csrf_token('pin' ~ item.id) }}'>" .
-                "<button type='submit' $this->class $this->style > $this->icon </button>" . "</form>";
+                $s = $this->getBuildButton("pin");
+//                $s = "<form style='margin:0px;' method='post' onsubmit='return confirm(". '"' . $this->label . '"' .");' action='$this->ref'>
+//                <input type='hidden' name='_token' value='{{ csrf_token('pin' ~ item.id) }}'>" .
+//                "<button type='submit' $this->class $this->style > $this->icon </button>" . "</form>";
 
                 $s = "{% if item.publish is defined %} $s {% endif %}";
                 break;
             case "@":
-
+                $s = $this->getBuildButton($this->data);
                 break;
             default :
                 $s = "<$this->type $this->ref $this->class $this->style > $this->icon $this->label </$this->type>" ;
@@ -63,10 +63,12 @@ class buttonBuild
 
     /**
      * @param string|null $add
+     * @return buttonBuild
      */
-    public function setAdd(?string $add): void
+    public function setAdd(?string $add): self
     {
         $this->add = $add;
+        return $this;
     }
 
 
@@ -197,5 +199,16 @@ class buttonBuild
     {
         $this->icon = "<i class='$icon'></i>";
         return $this;
+    }
+
+    /**
+     * @param string $csrf
+     * @return string
+     */
+    private function getBuildButton(string $csrf): string
+    {
+        return "<form style='margin:0px;' method='post' onsubmit='return confirm(" . '"' . $this->label . '"' . ");' action='$this->ref'> 
+                <input type='hidden' name='_token' value='{{ csrf_token('$csrf' ~ item.id) }}'>" .
+            "<button type='submit' $this->class $this->style > $this->icon </button>" . "</form>";
     }
 }
