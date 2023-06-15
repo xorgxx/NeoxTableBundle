@@ -28,6 +28,7 @@ class NeoxTableBuilder extends NeoxTableTools
         $this->setTrThead($fields);
 
         // Create tbody tr->td
+        // lastConnect [@domain] [#params] lastConnect@parking#date
         $this->setTrBody($fields);
         return $this;
     }

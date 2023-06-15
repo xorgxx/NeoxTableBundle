@@ -93,13 +93,14 @@ class NeoxTableTools
         $key = trim($key," ");
 
         switch (true) {
+            case $subDomaine:
+                $key = $this->translator->trans( $subDomaine . ".form.$key.label",[] ,$subDomaine) ? : $key;
+                break;
             case (!strncmp("update", $key, strlen("update"))):
             case (!strncmp("creat", $key, strlen("creat"))):
                 $key = $this->translator->trans("$key.label",[]) ? : $key;
                 break;
-            case $subDomaine:
-                $key = $this->translator->trans( $subDomaine . ".form.$key.label",[] ,$subDomaine) ? : $key;
-                break;
+
             default:
                 if ($this->getDomaine()) {
                     $key = $this->translator->trans( $this->getDomaine() . ".form.$key.label",[],$this->getDomaine()) ? : $key;
@@ -277,7 +278,7 @@ class NeoxTableTools
         foreach ($items as $key => $item) {
             // format item in good way !!!
 
-            [$subDomaine, $item] = $this->checkDomaineToTranslateRelationEntity($item);
+            [$subDomaine, $item, $elem, $params] = $this->checkDomaineToTranslateRelationEntity($item);
 
             switch ($item) {
                 case "@" :
@@ -298,14 +299,26 @@ class NeoxTableTools
                     break;
                 default :
                     $t = "{{ item.$item|default('null')|raw }}";
-                    // check type -> date
-                    if ($this->arrayInString("start,end,date,created,updated,lastConnect",$item)) {
-                        $t = "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY') }}";
+
+                    // convert date, dateTime in twig        tytyt@parking@time
+                    switch ($params) {
+                        case "#time":
+                            $t =  "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY hh:mm') }}";
+                            break;
+                        case "#date":
+                            $t = "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY') }}";
+                            break;
                     }
 
-                    if ($this->arrayInString("startTime,endTime",$item)) {
-                        $t =  "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY hh:mm') }}";
-                    }
+                    // check type -> date
+//                    if ($this->arrayInString("start,end,date,created,updated,lastConnect",$item)) {
+//                        $t = "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY') }}";
+//                    }
+//
+//                    if ($this->arrayInString("startTime,endTime",$item)) {
+//                        $t =  "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY hh:mm') }}";
+//                    }
+
                     $this->trBody .= '<td class=""> ' . $t . ' </td>';
 //                    $this->trBody .= '<td class="">$t ? :{{ item.'.$item.' }}</td>';
 
@@ -356,10 +369,12 @@ class NeoxTableTools
      */
     private function checkDomaineToTranslateRelationEntity(string $item): array
     {
-        // author.email.label@user -> author.email.label ->  user -> email.label
-
+        // author.email.label@user@time -> author.email.label ->  user -> email.label
+        $params     = strstr($item, '#');
         // ->  user
+
         $subDomaine = str_replace("@", "",strstr($item, '@')) ?: "";
+        $subDomaine = str_replace($params, "",$subDomaine);
 
         // -> author.email.label
         $item       = strstr($item, '@', true) ? : $item;
@@ -368,6 +383,6 @@ class NeoxTableTools
         $e          = strstr($item, '.',true);
         $elem       = str_replace($e.".", "", $item);
 
-        return array($subDomaine, $item, $elem);
+        return array($subDomaine, $item, $elem, $params);
     }
 }
