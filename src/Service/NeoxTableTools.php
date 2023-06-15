@@ -311,9 +311,9 @@ class NeoxTableTools
                     }
 
                     // check type -> date
-//                    if ($this->arrayInString("start,end,date,created,updated,lastConnect",$item)) {
-//                        $t = "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY') }}";
-//                    }
+                    if ($this->arrayInString("start,end,date,created,updated,lastConnect",$item)) {
+                        $t = "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY') }}";
+                    }
 //
 //                    if ($this->arrayInString("startTime,endTime",$item)) {
 //                        $t =  "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY hh:mm') }}";
