@@ -303,7 +303,7 @@ class NeoxTableTools
                     // convert date, dateTime in twig        tytyt@parking@time
                     switch ($params) {
                         case "#time":
-                            $t =  "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY hh:mm') }}";
+                            $t =  "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY kk:mm') }}";
                             break;
                         case "#date":
                             $t = "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY') }}";
