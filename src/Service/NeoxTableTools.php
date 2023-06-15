@@ -300,6 +300,11 @@ class NeoxTableTools
                 default :
                     $t = "{{ item.$item|default('null')|raw }}";
 
+                    // check type -> date
+                    if ($this->arrayInString("start,end,date,created,updated,lastConnect",$item)) {
+                        $t = "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY') }}";
+                    }
+
                     // convert date, dateTime in twig        tytyt@parking@time
                     switch ($params) {
                         case "#time":
@@ -310,10 +315,7 @@ class NeoxTableTools
                             break;
                     }
 
-                    // check type -> date
-                    if ($this->arrayInString("start,end,date,created,updated,lastConnect",$item)) {
-                        $t = "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY') }}";
-                    }
+
 //
 //                    if ($this->arrayInString("startTime,endTime",$item)) {
 //                        $t =  "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY hh:mm') }}";
