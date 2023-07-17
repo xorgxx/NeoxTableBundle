@@ -306,16 +306,21 @@ class NeoxTableTools
                     }
 
                     // convert date, dateTime in twig        tytyt@parking@time
-                    switch ("#".$params) {
-                        case "#time":
-                            $t =  "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY kk:mm') }}";
-                            break;
-                        case "#date":
-                            $t = "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY') }}";
-                            break;
-                        case "#enum":
-                            $t = "{{ item.$elem|enum() }}";
-                            break;
+                    if ($params) {
+                        switch ("#".$params) {
+                            case "#time":
+                                $t =  "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY kk:mm') }}";
+                                break;
+                            case "#date":
+                                $t = "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY') }}";
+                                break;
+                            case "#enum":
+                                $t = "{{ item.$elem|enum() }}";
+                                break;
+                            default:
+                                $t = "{{ item.$elem|$params }}";
+                                break;
+                        }
                     }
 
 //

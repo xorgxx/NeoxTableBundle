@@ -180,7 +180,12 @@ Add voter on action bar: if you set in your project voter on entity it will reco
     public const VIEW   = 'VIEW';
     public const DELETE = 'DELETE';
 ````
-
+Now possibility to add "filter" and "function" Twig
+````
+    ->filterFields("#, title, description, position, faqsDomaine.value, category#join('|')|raw", "faq")
+    or to give custome one
+    ->filterFields("#, title, description, position, faqsDomaine#enum, category#join('|')", "faq")
+````
 ## Contributing
 If you want to contribute \(thank you!\) to this bundle, here are some guidelines:
 
@@ -189,6 +194,7 @@ If you want to contribute \(thank you!\) to this bundle, here are some guideline
     * You fix a bug that wasn't covered before
     * You add a new feature
     * You see code that works but isn't covered by any tests \(there is a special place in heaven for you\)
+
 
 ## Todo
 * Packagist
