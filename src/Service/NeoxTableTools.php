@@ -306,15 +306,17 @@ class NeoxTableTools
                     }
 
                     // convert date, dateTime in twig        tytyt@parking@time
-                    switch ($params) {
+                    switch ("#".$params) {
                         case "#time":
                             $t =  "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY kk:mm') }}";
                             break;
                         case "#date":
                             $t = "{{ item.$item|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY') }}";
                             break;
+                        case "#enum":
+                            $t = "{{ item.$elem|enum() }}";
+                            break;
                     }
-
 
 //
 //                    if ($this->arrayInString("startTime,endTime",$item)) {
@@ -371,19 +373,50 @@ class NeoxTableTools
      */
     private function checkDomaineToTranslateRelationEntity(string $item): array
     {
-        // author.email.label@user@time -> author.email.label ->  user -> email.label
-        $params     = strstr($item, '#');
-        // ->  user
+        $vachar         = $item; //"example@example#enum";
+        $elem           = null;
+        $subDomaine     = null;
+        $params         = null;
 
-        $subDomaine = str_replace("@", "",strstr($item, '@')) ?: "";
-        $subDomaine = str_replace($params, "",$subDomaine);
+        $parts  = explode("#", $vachar);
+        // elem
+        if (isset($parts[1])) {
+            $params = $parts[1];
+        }
 
-        // -> author.email.label
-        $item       = strstr($item, '@', true) ? : $item;
+        $parts  = explode("@", $vachar);
+        // elem
+        if (isset($parts[0])) {
+            if ($params) {
+                $elem = str_replace("#".$params, "",$parts[0]);
+            }else{
+                $elem = $parts[0];
+            }
 
-        // -> email.label
-        $e          = strstr($item, '.',true);
-        $elem       = str_replace($e.".", "", $item);
+        }
+
+        $parts  = explode("@", $vachar);
+        // elem
+        if (isset($parts[1])) {
+            $subDomaine = $parts[1];
+        }
+
+
+
+//        // civility@domain#enum
+//        // author.email.label@user@time -> author.email.label ->  user -> email.label
+//        $params     = strstr($item, '#');
+//        // ->  user
+//
+//        $subDomaine = str_replace("@", "",strstr($item, '@')) ?: "";
+//        $subDomaine = str_replace($params, "",$subDomaine);
+//
+//        // -> author.email.label
+//        $item       = strstr($item, '@', true) ? : $item;
+//
+//        // -> email.label
+//        $e          = strstr($item, '.',true);
+//        $elem       = str_replace($e.".", "", $item);
 
         return array($subDomaine, $item, $elem, $params);
     }
