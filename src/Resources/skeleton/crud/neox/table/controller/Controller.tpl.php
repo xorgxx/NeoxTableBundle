@@ -11,207 +11,154 @@ class <?= $class_name ?> extends _NeoxCoreController
 <?php if (isset($repository_full_class_name)): ?>
     public function index(Request $request, <?= $repository_class_name ?> $<?= $repository_var ?>): Response
     {
-        $neoxTable = $this->getNeoxTableBuilder()
-            ->filterFields("#,'ADD-YOUR-FIELDS'", "<?= $entity_twig_var_singular ?>")
-            ->setEntity($<?= $repository_var ?>->findAll())
-            ->setActButton("@<?= $route_name ?>")
-        ;
+    $neoxTable = $this->getNeoxTableBuilder()
+    ->filterFields("#,'ADD-YOUR-FIELDS'", "<?= $entity_twig_var_singular ?>")
+    ->setEntity($<?= $repository_var ?>->findAll())
+    ->setActButton("@<?= $route_name ?>")
+    ;
 
-        // 🔥 The magic happens here! 🔥
-        if ( $this->getNeoxTableBuilder()::checkTurbo($request) ) {
-            return $this->render('@NeoxTable/neoxTable.html.twig',["neoxTable" => $neoxTable  ]);
-        }
+    // 🔥 The magic happens here! 🔥
+    if ( $this->getNeoxTableBuilder()::checkTurbo($request) ) {
+    return $this->render('@NeoxTable/neoxTable.html.twig',["neoxTable" => $neoxTable  ]);
+    }
 
-        return $this->render('<?= $templates_path ?>/index.html.twig', [
-            'neoxTable' => $neoxTable,
-        ]);
+    return $this->render('<?= $templates_path ?>/index.html.twig', [
+    'neoxTable' => $neoxTable,
+    ]);
     }
 <?php else: ?>
     public function index(EntityManagerInterface $entityManager): Response
     {
-        $<?= $entity_var_plural ?> = $entityManager
-            ->getRepository(<?= $entity_class_name ?>::class)
-            ->findAll();
+    $<?= $entity_var_plural ?> = $entityManager
+    ->getRepository(<?= $entity_class_name ?>::class)
+    ->findAll();
 
-        return $this->render('<?= $templates_path ?>/index.html.twig', [
-            '<?= $entity_twig_var_plural ?>' => $<?= $entity_var_plural ?>,
-        ]);
+    return $this->render('<?= $templates_path ?>/index.html.twig', [
+    '<?= $entity_twig_var_plural ?>' => $<?= $entity_var_plural ?>,
+    ]);
     }
 <?php endif ?>
 
 <?= $generator->generateRouteForControllerMethod('/new', sprintf('%s_new', $route_name), ['GET', 'POST']) ?>
-<?php if (isset($repository_full_class_name) && $generator->repositoryHasSaveAndRemoveMethods($repository_full_class_name)) { ?>
-    public function new(Request $request, <?= $repository_class_name ?> $<?= $repository_var ?>): Response
-<?php } else { ?>
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-<?php } ?>
-    {
-        $<?= $entity_var_singular ?> = new <?= $entity_class_name ?>();
-        $form = $this->createForm(<?= $form_class_name ?>::class, $<?= $entity_var_singular ?>, [
-            'action' => $this->generateUrl('<?= sprintf('%s_new', $route_name) ?>', []),
-            'method' => 'POST',
-        ]);
 
-        $form->handleRequest($request);
+public function new(Request $request, EntityManagerInterface $entityManager): Response
 
-<?php if (isset($repository_full_class_name) && $generator->repositoryHasSaveAndRemoveMethods($repository_full_class_name)) { ?>
-        if ($form->isSubmitted() && $form->isValid()) {
-            $<?= $repository_var ?>->save($<?= $entity_var_singular ?>, true);
-            $this->addFlash('success', "Enregistrement a été ajouté.");
-            // 🔥 The magic happens here! 🔥
-            if ( $this->getNeoxTableBuilder()::checkTurbo($request) ) {
-                return $this->render('@NeoxTable/msg.stream.html.twig', ["domaine" => "<?= $entity_twig_var_singular ?>"]);
-            }
-            return $this->redirectToRoute('<?= $route_name ?>_index', [], Response::HTTP_SEE_OTHER);
-        }
-<?php } else { ?>
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($<?= $entity_var_singular ?>);
-            $entityManager->flush();
+{
+$<?= $entity_var_singular ?> = new <?= $entity_class_name ?>();
+$form = $this->createForm(<?= $form_class_name ?>::class, $<?= $entity_var_singular ?>, [
+'action' => $this->generateUrl('<?= sprintf('%s_new', $route_name) ?>', []),
+'method' => 'POST',
+]);
 
-            return $this->redirectToRoute('<?= $route_name ?>_index', [], Response::HTTP_SEE_OTHER);
-        }
-<?php } ?>
+$form->handleRequest($request);
+
+if ($form->isSubmitted() && $form->isValid()) {
+$<?= $repository_var ?>->save($<?= $entity_var_singular ?>, true);
+$this->addFlash('success', "Enregistrement a été ajouté.");
+// 🔥 The magic happens here! 🔥
+if ( $this->getNeoxTableBuilder()::checkTurbo($request) ) {
+return $this->render('@NeoxTable/msg.stream.html.twig', ["domaine" => "<?= $entity_twig_var_singular ?>"]);
+}
+return $this->redirectToRoute('<?= $route_name ?>_index', [], Response::HTTP_SEE_OTHER);
+}
 
 <?php if ($use_render_form) { ?>
-        return $this->render('<?= $templates_path ?>/crud.html.twig', [
-            '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
-            'mode'  => $this->getTranslator()->trans("<?= $entity_var_singular ?>.form.add.label",[],"<?= $entity_var_singular ?>"),
-            'form'  => $form,
-        ]);
+    return $this->render('<?= $templates_path ?>/crud.html.twig', [
+    '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
+    'mode'  => $this->getTranslator()->trans("<?= $entity_var_singular ?>.form.add.label",[],"<?= $entity_var_singular ?>"),
+    'form'  => $form,
+    ]);
 <?php } else { ?>
-        return $this->render('<?= $templates_path ?>/crud.html.twig', [
-            '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
-            'mode'  => $this->getTranslator()->trans("<?= $entity_var_singular ?>.form.add.label",[],"<?= $entity_var_singular ?>"),
-            'form'  => $form,
-        ]);
+    return $this->render('<?= $templates_path ?>/crud.html.twig', [
+    '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
+    'mode'  => $this->getTranslator()->trans("<?= $entity_var_singular ?>.form.add.label",[],"<?= $entity_var_singular ?>"),
+    'form'  => $form,
+    ]);
 <?php } ?>
-    }
+}
 
 <?= $generator->generateRouteForControllerMethod(sprintf('/{%s}', $entity_identifier), sprintf('%s_show', $route_name), ['GET']) ?>
-    public function show(<?= $entity_class_name ?> $<?= $entity_var_singular ?>): Response
-    {
-        return $this->render('<?= $templates_path ?>/show.html.twig', [
-            '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
-        ]);
-    }
+public function show(<?= $entity_class_name ?> $<?= $entity_var_singular ?>): Response
+{
+return $this->render('<?= $templates_path ?>/show.html.twig', [
+'<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
+]);
+}
 
 <?= $generator->generateRouteForControllerMethod(sprintf('/{%s}/edit', $entity_identifier), sprintf('%s_edit', $route_name), ['GET', 'POST']) ?>
-<?php if (isset($repository_full_class_name) && $generator->repositoryHasSaveAndRemoveMethods($repository_full_class_name)) { ?>
-    public function edit(Request $request, <?= $entity_class_name ?> $<?= $entity_var_singular ?>, <?= $repository_class_name ?> $<?= $repository_var ?>): Response
-<?php } else { ?>
-    public function edit(Request $request, <?= $entity_class_name ?> $<?= $entity_var_singular ?>, EntityManagerInterface $entityManager): Response
-<?php } ?>
-    {
-        $form = $this->createForm(<?= $form_class_name ?>::class, $<?= $entity_var_singular ?>, [
-            'action' => $this->generateUrl('<?= sprintf('%s_edit', $route_name) ?>', ["id"=> $<?= $entity_var_singular ?>->getId()]),
-            'method' => 'POST',
-        ]);
-        $form->handleRequest($request);
 
-<?php if (isset($repository_full_class_name) && $generator->repositoryHasSaveAndRemoveMethods($repository_full_class_name)) { ?>
-        if ($form->isSubmitted() && $form->isValid()) {
-            $<?= $repository_var ?>->save($<?= $entity_var_singular ?>, true);
-            $this->addFlash('success', "Enregistrement a été modifier.");
+public function edit(Request $request, <?= $entity_class_name ?> $<?= $entity_var_singular ?>, EntityManagerInterface $entityManager): Response
 
-            // 🔥 The magic happens here! 🔥
-            if ( $this->getNeoxTableBuilder()::checkTurbo($request) ) {
-                return $this->render('@NeoxTable/msg.stream.html.twig', ["domaine" => "<?= $entity_twig_var_singular ?>"]);
-            }
-            return $this->redirectToRoute('<?= $route_name ?>_index', [], Response::HTTP_SEE_OTHER);
-        }
-<?php } else { ?>
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+{
+$form = $this->createForm(<?= $form_class_name ?>::class, $<?= $entity_var_singular ?>, [
+'action' => $this->generateUrl('<?= sprintf('%s_edit', $route_name) ?>', ["id"=> $<?= $entity_var_singular ?>->getId()]),
+'method' => 'POST',
+]);
+$form->handleRequest($request);
 
-            return $this->redirectToRoute('<?= $route_name ?>_index', [], Response::HTTP_SEE_OTHER);
-        }
-<?php } ?>
+if ($form->isSubmitted() && $form->isValid()) {
+$<?= $repository_var ?>->save($<?= $entity_var_singular ?>, true);
+$this->addFlash('success', "Enregistrement a été modifier.");
+
+// 🔥 The magic happens here! 🔥
+if ( $this->getNeoxTableBuilder()::checkTurbo($request) ) {
+return $this->render('@NeoxTable/msg.stream.html.twig', ["domaine" => "<?= $entity_twig_var_singular ?>"]);
+}
+return $this->redirectToRoute('<?= $route_name ?>_index', [], Response::HTTP_SEE_OTHER);
+}
 
 <?php if ($use_render_form) { ?>
-        return $this->render('<?= $templates_path ?>/crud.html.twig', [
-            '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
-            'mode'  => $this->getTranslator()->trans("<?= $entity_var_singular ?>.form.update.label",[],"<?= $entity_var_singular ?>"),
-            'form' => $form,
-        ]);
+    return $this->render('<?= $templates_path ?>/crud.html.twig', [
+    '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
+    'mode'  => $this->getTranslator()->trans("<?= $entity_var_singular ?>.form.update.label",[],"<?= $entity_var_singular ?>"),
+    'form' => $form,
+    ]);
 <?php } else { ?>
-        return $this->render('<?= $templates_path ?>/crud.html.twig', [
-            '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
-            'mode'  => $this->getTranslator()->trans("<?= $entity_var_singular ?>.form.update.label",[],"<?= $entity_var_singular ?>"),
-            'form' => $form,
-        ]);
+    return $this->render('<?= $templates_path ?>/crud.html.twig', [
+    '<?= $entity_twig_var_singular ?>' => $<?= $entity_var_singular ?>,
+    'mode'  => $this->getTranslator()->trans("<?= $entity_var_singular ?>.form.update.label",[],"<?= $entity_var_singular ?>"),
+    'form' => $form,
+    ]);
 <?php } ?>
-    }
+}
 
 
 <?= $generator->generateRouteForControllerMethod(sprintf('/{%s}/pin', $entity_identifier), sprintf('%s_pin', $route_name), ['POST']) ?>
-<?php if (isset($repository_full_class_name) && $generator->repositoryHasSaveAndRemoveMethods($repository_full_class_name)) { ?>
-    public function pin(Request $request, <?= $entity_class_name ?> $<?= $entity_var_singular ?>, <?= $repository_class_name ?> $<?= $repository_var ?>): Response
-<?php } else { ?>
-    public function pin(Request $request, <?= $entity_class_name ?> $<?= $entity_var_singular ?>, EntityManagerInterface $entityManager): Response
-<?php } ?>
+public function pin(Request $request, <?= $entity_class_name ?> $<?= $entity_var_singular ?>, EntityManagerInterface $entityManager): Response
+
 {
-<?php if (isset($repository_full_class_name) && $generator->repositoryHasSaveAndRemoveMethods($repository_full_class_name)) { ?>
-    if ($this->isCsrfTokenValid('pin'.$<?= $entity_var_singular ?>->get<?= ucfirst($entity_identifier) ?>(), $request->request->get('_token'))) {
-        $onOff = !$<?= $entity_var_singular ?>->isPublish();
-        $<?= $entity_var_singular ?>->setPublish($onOff);
-        $<?= $repository_var ?>->save($<?= $entity_var_singular ?>, true);
-        $msg = $onOff ? "Post est visible de tous." : "Post n'est plus visible de tous.";
-        $this->addFlash('success', $msg);
+if ($this->isCsrfTokenValid('pin'.$<?= $entity_var_singular ?>->get<?= ucfirst($entity_identifier) ?>(), $request->request->get('_token'))) {
+$onOff = !$<?= $entity_var_singular ?>->isPublish();
+$<?= $entity_var_singular ?>->setPublish($onOff);
+$<?= $repository_var ?>->save($<?= $entity_var_singular ?>, true);
+$msg = $onOff ? "Post est visible de tous." : "Post n'est plus visible de tous.";
+$this->addFlash('success', $msg);
 
-        // 🔥 The magic happens here! 🔥
-        if ( $this->getNeoxTableBuilder()::checkTurbo($request) ) {
-            return $this->render('@NeoxTable/msg.stream.html.twig', ["domaine" => "<?= $entity_var_singular ?>"]);
-        }
-    }
-<?php } else { ?>
-    if ($this->isCsrfTokenValid('pin'.$<?= $entity_var_singular ?>->get<?= ucfirst($entity_identifier) ?>(), $request->request->get('_token'))) {
-        $onOff = !$<?= $entity_var_singular ?>->isPublish();
-        $<?= $entity_var_singular ?>->setPublish($onOff);
-        $<?= $repository_var ?>->save($<?= $entity_var_singular ?>, true);
-        $msg = $onOff ? "Post est visible de tous." : "Post n'est plus visible de tous.";
-        $this->addFlash('success', $msg);
+// 🔥 The magic happens here! 🔥
+if ( $this->getNeoxTableBuilder()::checkTurbo($request) ) {
+return $this->render('@NeoxTable/msg.stream.html.twig', ["domaine" => "<?= $entity_var_singular ?>"]);
+}
+}
 
-        // 🔥 The magic happens here! 🔥
-        if ( $this->getNeoxTableBuilder()::checkTurbo($request) ) {
-            return $this->render('@NeoxTable/msg.stream.html.twig', ["domaine" => "<?= $entity_var_singular ?>"]);
-        }
-    }
-<?php } ?>
-
-    return $this->redirectToRoute('<?= $route_name ?>_index', [], Response::HTTP_SEE_OTHER);
+return $this->redirectToRoute('<?= $route_name ?>_index', [], Response::HTTP_SEE_OTHER);
 }
 
 
 <?= $generator->generateRouteForControllerMethod(sprintf('/{%s}', $entity_identifier), sprintf('%s_delete', $route_name), ['POST']) ?>
-<?php if (isset($repository_full_class_name) && $generator->repositoryHasSaveAndRemoveMethods($repository_full_class_name)) { ?>
-    public function delete(Request $request, <?= $entity_class_name ?> $<?= $entity_var_singular ?>, <?= $repository_class_name ?> $<?= $repository_var ?>): Response
-<?php } else { ?>
-    public function delete(Request $request, <?= $entity_class_name ?> $<?= $entity_var_singular ?>, EntityManagerInterface $entityManager): Response
-<?php } ?>
-    {
-<?php if (isset($repository_full_class_name) && $generator->repositoryHasSaveAndRemoveMethods($repository_full_class_name)) { ?>
-        if ($this->isCsrfTokenValid('delete'.$<?= $entity_var_singular ?>->get<?= ucfirst($entity_identifier) ?>(), $request->request->get('_token'))) {
-            $<?= $repository_var ?>->remove($<?= $entity_var_singular ?>, true);
-            $this->addFlash('success', "Enregistrement a été supprimé.");
+public function delete(Request $request, <?= $entity_class_name ?> $<?= $entity_var_singular ?>, <?= $repository_class_name ?> $<?= $repository_var ?>): Response
 
-            // 🔥 The magic happens here! 🔥
-            if ( $this->getNeoxTableBuilder()::checkTurbo($request) ) {
-                return $this->render('@NeoxTable/msg.stream.html.twig', ["domaine" => "<?= $entity_var_singular ?>"]);
-            }
-        }
-<?php } else { ?>
-        if ($this->isCsrfTokenValid('delete'.$<?= $entity_var_singular ?>->get<?= ucfirst($entity_identifier) ?>(), $request->request->get('_token'))) {
-            $entityManager->remove($<?= $entity_var_singular ?>);
-            $this->addFlash('success', "Enregistrement a été supprimé.");
+{
+if ($this->isCsrfTokenValid('delete'.$<?= $entity_var_singular ?>->get<?= ucfirst($entity_identifier) ?>(), $request->request->get('_token'))) {
+$<?= $repository_var ?>->remove($<?= $entity_var_singular ?>, true);
+$this->addFlash('success', "Enregistrement a été supprimé.");
 
-            // 🔥 The magic happens here! 🔥
-            if ( $this->getNeoxTableBuilder()::checkTurbo($request) ) {
-                return $this->render('@NeoxTable/msg.stream.html.twig', ["domaine" => "<?= $entity_var_singular ?>"]);
-            }
-        }
-<?php } ?>
+// 🔥 The magic happens here! 🔥
+if ( $this->getNeoxTableBuilder()::checkTurbo($request) ) {
+return $this->render('@NeoxTable/msg.stream.html.twig', ["domaine" => "<?= $entity_var_singular ?>"]);
+}
+}
 
-        return $this->redirectToRoute('<?= $route_name ?>_index', [], Response::HTTP_SEE_OTHER);
-    }
+
+return $this->redirectToRoute('<?= $route_name ?>_index', [], Response::HTTP_SEE_OTHER);
+}
 }
