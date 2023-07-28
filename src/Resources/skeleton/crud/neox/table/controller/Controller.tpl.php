@@ -41,7 +41,7 @@ class <?= $class_name ?> extends _NeoxCoreController
 
 <?= $generator->generateRouteForControllerMethod('/new', sprintf('%s_new', $route_name), ['GET', 'POST']) ?>
 
-public function new(Request $request, EntityManagerInterface $entityManager): Response
+public function new(Request $request, <?= $repository_class_name ?> $<?= $repository_var ?>): Response
 
 {
 $<?= $entity_var_singular ?> = new <?= $entity_class_name ?>();
@@ -87,7 +87,7 @@ return $this->render('<?= $templates_path ?>/show.html.twig', [
 
 <?= $generator->generateRouteForControllerMethod(sprintf('/{%s}/edit', $entity_identifier), sprintf('%s_edit', $route_name), ['GET', 'POST']) ?>
 
-public function edit(Request $request, <?= $entity_class_name ?> $<?= $entity_var_singular ?>, EntityManagerInterface $entityManager): Response
+public function edit(Request $request, <?= $entity_class_name ?> $<?= $entity_var_singular ?>, <?= $repository_class_name ?> $<?= $repository_var ?>): Response
 
 {
 $form = $this->createForm(<?= $form_class_name ?>::class, $<?= $entity_var_singular ?>, [
@@ -124,7 +124,7 @@ return $this->redirectToRoute('<?= $route_name ?>_index', [], Response::HTTP_SEE
 
 
 <?= $generator->generateRouteForControllerMethod(sprintf('/{%s}/pin', $entity_identifier), sprintf('%s_pin', $route_name), ['POST']) ?>
-public function pin(Request $request, <?= $entity_class_name ?> $<?= $entity_var_singular ?>, EntityManagerInterface $entityManager): Response
+public function pin(Request $request, <?= $entity_class_name ?> $<?= $entity_var_singular ?>, <?= $repository_class_name ?> $<?= $repository_var ?>): Response
 
 {
 if ($this->isCsrfTokenValid('pin'.$<?= $entity_var_singular ?>->get<?= ucfirst($entity_identifier) ?>(), $request->request->get('_token'))) {
