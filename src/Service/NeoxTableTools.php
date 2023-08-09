@@ -309,10 +309,10 @@ class NeoxTableTools
                     if ($params) {
                         switch ("#".$params) {
                             case "#time":
-                                $t =  "{{ item.$elem|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY kk:mm') }}";
+                                $t =  "{{ item.$elem ? item.$elem|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY kk:mm') : item.$elem  }}";
                                 break;
                             case "#date":
-                                $t = "{{ item.$elem|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY') }}";
+                                $t = "{{ item.$elem ? item.$elem|format_datetime(locale='fr',pattern='EEEE dd MMMM YYYY') : item.$elem }}";
                                 break;
                             case "#enum":
                                 $t = "{{ item.$elem|enum() }}";
