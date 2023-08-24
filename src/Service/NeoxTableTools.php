@@ -378,33 +378,16 @@ class NeoxTableTools
      */
     private function checkDomaineToTranslateRelationEntity(string $item): array
     {
-        $vachar         = $item; //"example@example#enum";
-        $elem           = null;
-        $subDomaine     = null;
-        $params         = null;
-
-        $parts  = explode("#", $vachar);
-        // elem
-        if (isset($parts[1])) {
-            $params = $parts[1];
+        $subDomaine     = "";
+        $elem           = $item;
+        $params         = "";
+        
+        if (str_contains($item, "#")) {
+            [$vachar, $params] = explode("#", $item, 2);
+            [$elem, $subDomaine] = str_contains($vachar, "@") ? explode("@", $vachar, 2) : [$vachar, ""];
         }
-
-        $parts  = explode("@", $vachar);
-        // elem
-        if (isset($parts[0])) {
-            if ($params) {
-                $elem = str_replace("#".$params, "",$parts[0]);
-            }else{
-                $elem = $parts[0];
-            }
-
-        }
-
-        $parts  = explode("@", $vachar);
-        // elem
-        if (isset($parts[1])) {
-            $subDomaine = $parts[1];
-        }
+        
+        return [$subDomaine, $item, $elem, $params];
 
 
 
@@ -423,6 +406,6 @@ class NeoxTableTools
 //        $e          = strstr($item, '.',true);
 //        $elem       = str_replace($e.".", "", $item);
 
-        return array($subDomaine, $item, $elem, $params);
+//        return array($subDomaine, $item, $elem, $params);
     }
 }
