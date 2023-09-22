@@ -156,6 +156,9 @@ Add all field that you need to see in render table. *if you have relation in ent
               ->setType("@")
               ->setAdd('<a href="/site-quotation" class="button m-0 button-circle button-large text-white" style="background-color: #084678;">Estimation gratuite ...</a>')
               ->build();
+        !!! Important NOTE !!!
+        to set turbo mode setTurbo() ->setTurbo("data-turbo='true'")
+        TODO additionnal data-xxx
               
         them to send to builder :
             $this->setButton($header, [Tag {a} to create action button; {h} to create header button]);
