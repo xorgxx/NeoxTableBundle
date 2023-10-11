@@ -1,4 +1,7 @@
-# NeoxTableBundle { Symfony 6 }
+
+
+# NeoxTableBundle { Symfony 6 }  
+# !!! This bundle is end life !! consider to install Please [NeoxMakeBundle](https://github.com/xorgxx/NeoxMakeBundle) !!!
 This bundle provides a simple and flexible to manage crud render in your application.
 Its main goal is to make it simple for you to manage integration "crud" render and to let you configure less common ones with ease.
 Be aware that there is no testing code !

@@ -29,10 +29,12 @@
     "doctrine/doctrine-bundle": "^2.4",
     "doctrine/orm": "^2.10.0",
     "symfony/http-client": "^5.4.7|^6.0",
+    "symfony/maker-bundle": "*",
     "symfony/phpunit-bridge": "^5.4.7|^6.0",
     "symfony/polyfill-php80": "^1.16.0",
     "symfony/process": "^5.4.7|^6.0",
     "symfony/security-core": "^5.4.7|^6.0",
+    "symfony/symfony": "*",
     "twig/twig": "^2.0|^3.0"
   },
   "config": {
