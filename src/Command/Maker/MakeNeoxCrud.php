@@ -339,10 +339,10 @@ final class MakeNeoxCrud extends AbstractMaker
             CsrfTokenManager::class,
             'security-csrf'
         );
-
-        $dependencies->addClassDependency(
-            ParamConverter::class,
-            'annotations'
-        );
+//         remove for dependency
+//        $dependencies->addClassDependency(
+//            ParamConverter::class,
+//            'annotations'
+//        );
     }
 }
